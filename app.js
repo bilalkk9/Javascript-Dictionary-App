@@ -9,14 +9,17 @@ searchBtn.addEventListener('click',function(e){
     e.preventDefault();
     
     // Clear Data
+
     audioBox.innerHTML = '';
     notFound.innerHTML = '';
     defBox.innerHTML = '';
 
     // Get input Data
+
     let word = input.value;
 
-        // Call API and Get Data
+    // Call API and Get Data
+
     if(word === '' ){
         alert('Enter Value');
         return;
@@ -31,6 +34,7 @@ getData(word);
 async function getData(word){
 
     // Ajax Call
+
     const response = await fetch(`https://dictionaryapi.com/api/v3/references/learners/json/${word}?key=${apiKey}`);
     const data = await response.json();
 
@@ -53,6 +57,11 @@ async function getData(word){
             suggestion.classList.add('suggested');
             suggestion.innerText = element;
             notFound.appendChild(suggestion);
+
+            suggestion.addEventListener('click',function(){
+                input.value = this.innerText;
+            })
+
         });
 
         return;
